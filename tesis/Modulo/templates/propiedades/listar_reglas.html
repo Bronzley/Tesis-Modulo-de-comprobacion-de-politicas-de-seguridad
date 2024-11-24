@@ -1,0 +1,33 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2 class="form-title">Lista de Reglas</h2>
+<form method="post" action="{% url 'listar_reglas' %}">
+    {% csrf_token %}
+    <div class="table-container">
+        <table class="gray-table">
+            <thead>
+                <tr>
+                    <th>Seleccionar</th>
+                    <th>Nombre de la Regla</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for regla in reglas %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="rules" value="{{ regla.id }}" {% if regla.id|stringformat:"s" in selected_rules %}checked{% endif %}>
+                    </td>
+                    <td>{{ regla.name }}</td>
+                    <td>{{ regla.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" class="btn-submit">Guardar Selección</button>
+    </div>
+
+{% endblock %}

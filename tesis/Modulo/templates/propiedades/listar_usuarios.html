@@ -1,0 +1,30 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2 class="form-title">Lista de Usuarios</h2>
+<div class="table-container">
+    <table class="gray-table">
+        <thead>
+            <tr>
+                <th>ID del Usuario</th>
+                <th>Nombre de Usuario</th>
+                <th>Correo Electrónico</th>
+                <th>Acciones</th>  <!-- Columna para las acciones -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id }}</td>  <!-- ID del Usuario -->
+                <td>{{ usuario.username }}</td>  <!-- Nombre de Usuario -->
+                <td>{{ usuario.email }}</td>  <!-- Correo Electrónico -->
+                <td>
+                    <!-- Enlace para ver detalles -->
+                    <a href="{% url 'ver_detalles_usuario' usuario.id %}">Ver detalles</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

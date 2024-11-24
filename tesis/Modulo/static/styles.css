@@ -1,0 +1,64 @@
+/* styles.css */
+body {
+    background-color: #1c1c1c; /* Fondo gris muy oscuro
+    color: #e0e0e0; /* Letra gris clara */
+    font-family: "Helvetica Neue", Arial, sans-serif; /* Tipografía más sofisticada */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+header {
+    background-color: #2a2a2a; /* Fondo del encabezado, ligeramente más claro */
+    padding: 10px 0; /* Ajustar el padding para hacer el header más pequeño */
+    text-align: center;
+    border-bottom: 1px solid rgba(49, 49, 49, 0.377); /* Borde menos definido */
+    border-radius: 0 0 5px 5px; /* Bordes menos rectos */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); /* Sombra más definida */
+  
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 300; /* Letras más ligeras para un toque sofisticado */
+    color: #e0e0e0; /* Color del texto del encabezado */
+    margin-top: 10px; /* Ajustar margen superior */
+}
+
+
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: -60px;
+    margin-top: -60px;
+}
+
+.btn-login {
+    font-size: 1.5em;
+    color: #fff;
+    background-color: #0056b3; /* Color azul oscuro */
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
+}
+
+.btn-login:hover {
+    background-color: #004080; /* Azul aún más oscuro al pasar el cursor */
+    transform: translateY(-5px); /* Efecto de elevación */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Sombra más intensa al pasar el cursor */
+}

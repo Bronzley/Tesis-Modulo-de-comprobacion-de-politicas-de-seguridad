@@ -1,0 +1,25 @@
+<!-- detalles_usuario.html -->
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2>Detalles del Usuario</h2>
+<table>
+    <tr>
+        <td>ID del Usuario:</td>
+        <td>{{ usuario.id }}</td>
+    </tr>
+    <tr>
+        <td>Nombre de Usuario:</td>
+        <td>{{ usuario.username }}</td>
+    </tr>
+    <tr>
+        <td>Correo Electrónico:</td>
+        <td>{{ usuario.email }}</td>
+    </tr>
+    <tr>
+        <td>Fecha de Creación:</td>
+        <td>{{ usuario.date_joined }}</td>
+    </tr>
+</table>
+<a href="{% url 'listar_usuarios' %}">Volver a la lista de usuarios</a>
+{% endblock %}

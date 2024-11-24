@@ -1,0 +1,53 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2 class="form-title">Lista de Computadoras</h2>
+<div class="table-container">
+    <table class="gray-table">
+        <thead>
+            <tr>
+                <th>ID de la Computadora</th>
+                <th>Nombre</th>
+                <th>Laboratorio</th>
+                <th>Dirección IP</th>
+                <th>Disco Duro</th>
+                <th>Motherboard</th>
+                <th>RAM</th>
+                <th>Sistema Operativo</th>
+                <th>Última Actualización</th>
+                <th>Antivirus</th>
+                <th>Antivirus Activado</th>
+                <th>Antivirus Actualizado</th>
+                <th>Firewall</th>
+                <th>Firewall Activado</th>
+                <th>Navegador</th>
+                <th>Dominio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for computadora in computadoras %}
+            <tr>
+                <td>{{ computadora.computer_id }}</td>
+                <td>{{ computadora.name }}</td>
+                <td>{{ computadora.lab }}</td>
+                <td>{{ computadora.ip_address }}</td>
+                <td>{{ computadora.disk }}</td>
+                <td>{{ computadora.motherboard }}</td>
+                <td>{{ computadora.ram }}</td>
+                <td>{{ computadora.operating_system }}</td>
+                <td>{{ computadora.last_update }}</td>
+                <td>{{ computadora.antivirus }}</td>
+                <td>{% if computadora.antivirus_enabled %}Sí{% else %}No{% endif %}</td>
+                <td>{% if computadora.antivirus_updated %}Sí{% else %}No{% endif %}</td>
+                <td>{{ computadora.firewall }}</td>
+                <td>{% if computadora.firewall_enabled %}Sí{% else %}No{% endif %}</td>
+                <td>{{ computadora.browser }}</td>
+                <td>{{ computadora.domain }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+{% endblock %}

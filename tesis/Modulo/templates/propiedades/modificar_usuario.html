@@ -1,0 +1,42 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Modificar Usuario</h2>
+    {% if not usuario %}
+    <form method="post" action="{% url 'modificar_usuario' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user_id">Seleccionar Usuario por ID:</label>
+            <input type="text" id="user_id" name="user_id" required>
+            <button type="submit" class="btn-submit">Buscar</button>
+        </div>
+    </form>
+    {% endif %}
+    {% if usuario %}
+    <form method="post" action="{% url 'actualizar_usuario' usuario.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label> <!-- Cambié el label y el id aquí -->
+            <input type="text" id="username" name="username" value="{{ usuario.username }}" required>
+        </div>
+        <div class="form-group">
+            <label for="first_name">Nombre:</label> <!-- Deja este campo para el nombre (first_name) si lo necesitas -->
+            <input type="text" id="first_name" name="first_name" value="{{ usuario.first_name }}">
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <button type="submit" class="btn-submit">Actualizar</button>
+        <a href="{% url 'modificar_usuario' %}" class="btn-cancel">Cancelar</a>
+    </form>
+    {% endif %}
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+    <p class="success-message">{{ success }}</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+
+<div id="email-button-container">
+    <button type="button" class="btn-email" onclick="showEmailForm();">Enviar Correo</button>
+</div>
+
+<!-- Opciones de Filtrado -->
+<div id="filter-options" class="filter-container" style="display: flex;">
+    <form method="get" action="{% url 'realizar_monitoreo' %}">
+        {% csrf_token %}
+        <div class="filter-select-container">
+            <label for="filter-select">Filtrar</label>
+            <select id="filter-select" name="filter-select" onchange="showFilterInput();">
+                <option value="">--Seleccionar--</option>
+                <option value="lab">Laboratorio</option>
+                <option value="ip">IP</option>
+                <option value="os">Sistema Operativo</option>
+                <option value="ram">RAM</option>
+                <option value="microprocesador">Microprocesador</option>
+                <option value="motherboard">Motherboard</option>
+                <option value="disk">Disco Duro</option>
+                <option value="last_update">Última Actualización</option>
+                <option value="incumplimientos">Incumplimientos</option>
+            </select>
+        </div>
+
+        <div id="filter-input-container" class="filter-input-container" style="display: none;">
+            <label for="filter-input">Introducir Valor:</label>
+            <input type="text" id="filter-input" name="filter-value" placeholder="Introduce el valor a buscar">
+            <button type="submit">Aplicar Filtro</button>
+        </div>
+    </form>
+</div>
+
+
+<h2 class="form-title">Lista de Computadoras</h2>
+<div class="table-container">
+    <table class="gray-table">
+        <thead>
+            <tr>
+                <th>ID de la Computadora</th>
+                <th>Nombre</th>
+                <th>Laboratorio</th>
+                <th>Dirección IP</th>
+                <th>Disco Duro</th>
+                <th>Motherboard</th>
+                <th>RAM</th>
+                <th>Sistema Operativo</th>
+                <th>Última Actualización</th>
+                <th>Antivirus</th>
+                <th>Antivirus Activado</th>
+                <th>Antivirus Actualizado</th>
+                <th>Firewall</th>
+                <th>Firewall Activado</th>
+                <th>Navegador</th>
+                <th>Dominio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for computadora in computadoras %}
+            <tr>
+                <td>{{ computadora.computer_id }}</td>
+                <td>{{ computadora.name }}</td>
+                <td>{{ computadora.lab }}</td>
+                <td>{{ computadora.ip_address }}</td>
+                <td>{{ computadora.disk }}</td>
+                <td>{{ computadora.motherboard }}</td>
+                <td>{{ computadora.ram }}</td>
+                <td>{{ computadora.operating_system }}</td>
+                <td>{{ computadora.last_update }}</td>
+                <td>{{ computadora.antivirus }}</td>
+                <td>{% if computadora.antivirus_enabled %}Sí{% else %}No{% endif %}</td>
+                <td>{% if computadora.antivirus_updated %}Sí{% else %}No{% endif %}</td>
+                <td>{{ computadora.firewall }}</td>
+                <td>{% if computadora.firewall_enabled %}Sí{% else %}No{% endif %}</td>
+                <td>{{ computadora.browser }}</td>
+                <td>{{ computadora.domain }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{% url 'verificar_incumplimientos' %}" class="btn-submit">Verificar Incumplimientos</a>
+    <a href="{% url 'exportar_pdf' %}" class="btn-exportar">Exportar Resultados en PDF</a>
+</div>
+
+<!-- Modal para el formulario de correo electrónico -->
+<div id="emailModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal();">&times;</span>
+        <h2>Enviar Resultados del Monitoreo</h2>
+        <form method="post" action="{% url 'enviar_resultados' %}">
+            {% csrf_token %}
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" placeholder="Introduce la dirección de correo electrónico" required>
+            <button type="submit" class="btn-submit">Enviar Resultados</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function toggleFilterOptions() {
+    var filterOptions = document.getElementById("filter-options");
+    filterOptions.style.display = "block";
+}
+
+function showFilterInput() {
+    var filterSelect = document.getElementById("filter-select");
+    var filterInputContainer = document.getElementById("filter-input-container");
+    var filterInput = document.getElementById("filter-input");
+    
+    if (filterSelect.value) {
+        filterInputContainer.style.display = "inline-block";
+        filterInput.name = filterSelect.value; // Asigna el nombre del campo de filtro seleccionado
+    } else {
+        filterInputContainer.style.display = "none";
+    }
+}
+
+function showEmailForm() {
+    var modal = document.getElementById("emailModal");
+    modal.style.display = "flex";  // Usar flex para centrar
+    document.body.classList.add("modal-open");
+}
+
+function closeModal() {
+    var modal = document.getElementById("emailModal");
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+}
+</script>
+{% endblock %}

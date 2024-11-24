@@ -1,0 +1,131 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<div class="form-container form-computadora">
+    <h2 class="form-title">Modificar Computadora</h2>
+    {% if not computadora %}
+    <form method="post" action="{% url 'modificar_computadora' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="computer_id">ID de la Computadora:</label>
+            <input type="text" id="computer_id" name="computer_id" required>
+            <button type="submit" name="load_computer" class="btn-submit">Cargar Datos</button>
+        </div>
+    </form>
+    {% endif %}
+    {% if computadora %}
+    <form method="post" action="{% url 'actualizar_computadora' computadora.id %}">
+        {% csrf_token %}
+        <!-- Sección 1: Información Básica -->
+        <div class="section active" id="section1">
+            <div class="form-group">
+                <label for="computer_id">ID de la Computadora:</label>
+                <input type="text" id="computer_id" name="computer_id" value="{{ computadora.computer_id }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" value="{{ computadora.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="lab">Laboratorio al que pertenece:</label>
+                <input type="text" id="lab" name="lab" value="{{ computadora.lab }}" required>
+            </div>
+            <div class="form-group">
+                <label for="ip_address">Dirección IP:</label>
+                <input type="text" id="ip_address" name="ip_address" value="{{ computadora.ip_address }}" required>
+            </div>
+            <button type="button" class="btn-submit" onclick="showNextSection('section2')">Siguiente</button>
+        </div>
+
+        <!-- Sección 2: Hardware -->
+        <div class="section" id="section2">
+            <div class="form-group">
+                <label for="disk">Disco Duro:</label>
+                <input type="text" id="disk" name="disk" value="{{ computadora.disk }}" required>
+            </div>
+            <div class="form-group">
+                <label for="motherboard">Motherboard:</label>
+                <input type="text" id="motherboard" name="motherboard" value="{{ computadora.motherboard }}" required>
+            </div>
+            <div class="form-group">
+                <label for="ram">RAM:</label>
+                <input type="text" id="ram" name="ram" value="{{ computadora.ram }}" required>
+            </div>
+            <div class="form-group">
+                <label for="operating_system">Sistema Operativo:</label>
+                <input type="text" id="operating_system" name="operating_system" value="{{ computadora.operating_system }}" required>
+            </div>
+            <div class="form-group">
+                <label for="last_update">Última Actualización:</label>
+                <input type="date" id="last_update" name="last_update" value="{{ computadora.last_update|date:'Y-m-d' }}" required>
+            </div>
+            <button type="button" class="btn-submit" onclick="showNextSection('section3')">Siguiente</button>
+        </div>
+
+        <!-- Sección 3: Software -->
+        <div class="section" id="section3">
+            <div class="form-group">
+                <label for="antivirus">Antivirus:</label>
+                <input type="text" id="antivirus" name="antivirus" value="{{ computadora.antivirus }}" required>
+            </div>
+            <div class="form-group">
+                <label for="antivirus_enabled">Antivirus Activado:</label>
+                <select id="antivirus_enabled" name="antivirus_enabled" required>
+                    <option value="yes" {% if computadora.antivirus_enabled %}selected{% endif %}>Sí</option>
+                    <option value="no" {% if not computadora.antivirus_enabled %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="antivirus_updated">Antivirus Actualizado:</label>
+                <select id="antivirus_updated" name="antivirus_updated" required>
+                    <option value="yes" {% if computadora.antivirus_updated %}selected{% endif %}>Sí</option>
+                    <option value="no" {% if not computadora.antivirus_updated %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <button type="button" class="btn-submit" onclick="showNextSection('section4')">Siguiente</button>
+        </div>
+
+        <!-- Sección 4: Seguridad -->
+        <div class="section" id="section4">
+            <div class="form-group">
+                <label for="firewall">Firewall:</label>
+                <input type="text" id="firewall" name="firewall" value="{{ computadora.firewall }}" required>
+            </div>
+            <div class="form-group">
+                <label for="firewall_enabled">Firewall Activado:</label>
+                <select id="firewall_enabled" name="firewall_enabled" required>
+                    <option value="yes" {% if computadora.firewall_enabled %}selected{% endif %}>Sí</option>
+                    <option value="no" {% if not computadora.firewall_enabled %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <button type="button" class="btn-submit" onclick="showNextSection('section5')">Siguiente</button>
+        </div>
+
+        <!-- Sección 5: Red -->
+        <div class="section" id="section5">
+            <div class="form-group">
+                <label for="browser">Navegador:</label>
+                <input type="text" id="browser" name="browser" value="{{ computadora.browser }}" required>
+            </div>
+            <div class="form-group">
+                <label for="domain">Dominio:</label>
+                <input type="text" id="domain" name="domain" value="{{ computadora.domain }}" required>
+            </div>
+            <button type="submit" class="btn-submit">Actualizar</button>
+        </div>
+    </form>
+    {% endif %}
+    {% if success %}
+    <p class="success-message">{{ success }}</p>
+    {% endif %}
+</div>
+
+<script>
+    function showNextSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+</script>
+{% endblock %}

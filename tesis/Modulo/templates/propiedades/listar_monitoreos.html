@@ -1,0 +1,58 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2 class="form-title">Lista de Monitoreos Realizados</h2>
+<div class="table-container">
+    <table class="gray-table">
+        <thead>
+            <tr>
+                <th>Fecha del Monitoreo</th>
+                <th>Cantidad de Computadoras Monitoreadas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for monitoreo in monitoreos %}
+            <tr>
+                <td>{{ monitoreo.date_checked }}</td>
+                <td>{{ monitoreo.computers_monitored.count }}</td>
+                <td>
+                    <a href="{% url 'ver_detalles_monitoreo' monitoreo.id %}" class="btn-submit">Ver Detalles</a>
+                    <button type="button" class="btn-submit btn-delete" onclick="confirmDeleteModal({{ monitoreo.id }});">Eliminar</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de Confirmación -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal();">&times;</span>
+        <h2>Confirmar Eliminación</h2>
+        <p>¿Estás seguro de que deseas eliminar este monitoreo? Esta acción no se puede deshacer.</p>
+        <form id="deleteForm" method="post" action="">
+            {% csrf_token %}
+            <button type="submit" class="btn-submit">Aceptar</button>
+            <button type="button" class="btn-submit" onclick="closeModal();">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function confirmDeleteModal(monitoreoId) {
+    var modal = document.getElementById("deleteModal");
+    var form = document.getElementById("deleteForm");
+    form.action = "/monitoreos/eliminar/" + monitoreoId + "/";
+    modal.style.display = "flex";  // Usar flex para centrar
+    document.body.classList.add("modal-open");
+}
+
+function closeModal() {
+    var modal = document.getElementById("deleteModal");
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+}
+</script>
+{% endblock %}

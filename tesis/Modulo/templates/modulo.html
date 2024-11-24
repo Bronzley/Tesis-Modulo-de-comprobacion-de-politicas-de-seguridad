@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Módulo de Seguridad{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'modulo.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Módulo de Seguridad</h1>
+        <nav>
+            <ul>
+                <!-- Pestaña Usuario -->
+                <li class="user-dropdown">
+                    <a href="#">Usuario</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{% url 'adicionar_usuario' %}">Adicionar Usuario</a></li>
+                        <li><a href="{% url 'modificar_usuario' %}">Modificar Usuario</a></li>
+                        <li><a href="{% url 'eliminar_usuario' %}">Eliminar Usuario</a></li>
+                        <li><a href="{% url 'listar_usuarios' %}">Listar Usuarios</a></li>
+                        <li>
+                            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-btn">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Pestaña Computadoras -->
+                <li class="computadoras-dropdown">
+                    <a href="#">Computadoras</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{% url 'adicionar_computadora' %}">Adicionar Computadora</a></li>
+                        <li><a href="{% url 'modificar_computadora' %}">Modificar Computadora</a></li>
+                        <li><a href="{% url 'eliminar_computadora' %}">Eliminar Computadora</a></li>
+                        <li><a href="{% url 'listar_computadoras' %}">Listar Computadoras</a></li>
+                    </ul>
+                </li>
+                <!-- Pestaña Reglas -->
+                <li class="reglas-dropdown">
+                    <a href="#">Reglas</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{% url 'listar_reglas' %}">Lista de Reglas</a></li>
+                    </ul>
+                </li>
+                <!-- Pestaña Monitoreo -->
+                <li class="monitoreo-dropdown">
+                    <a href="#">Monitoreo</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{% url 'realizar_monitoreo' %}">Realizar Monitoreo</a></li>
+                        <li><a href="{% url 'listar_monitoreos' %}">Listar Monitoreos</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content">
+            <!-- Bloque de Mensajes -->
+            {% if messages %}
+                <div class="alert-messages">
+                    {% for message in messages %}
+                        <!-- Si el mensaje es de éxito, aplicamos la clase success-message -->
+                        <div class="alert {{ message.tags }} {% if message.tags == 'success' %}success-message{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% block content %}
+            <!-- Contenido específico de cada página -->
+            {% endblock content %}
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>

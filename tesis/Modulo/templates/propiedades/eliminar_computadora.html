@@ -1,0 +1,31 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Eliminar Computadora</h2>
+    {% if not computadora %}
+    <form method="post" action="{% url 'eliminar_computadora' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="computer_id">ID de la Computadora:</label>
+            <input type="text" id="computer_id" name="computer_id" required>
+            <button type="submit" name="search_computer" class="btn-submit">Buscar</button>
+        </div>
+    </form>
+    {% endif %}
+    {% if computadora %}
+    <p>¿Estás seguro que deseas eliminar la computadora con ID "{{ computadora.computer_id }}"?</p>
+    <form method="post" action="{% url 'confirmar_eliminar_computadora' computadora.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-submit">Aceptar</button>
+        <a href="{% url 'eliminar_computadora' %}" class="btn-cancel">Cancelar</a>
+    </form>
+    {% endif %}
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+    <p class="success-message">{{ success }}</p>
+    {% endif %}
+</div>
+{% endblock %}

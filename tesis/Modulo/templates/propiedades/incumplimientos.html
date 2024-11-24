@@ -1,0 +1,29 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2 class="form-title">Incumplimientos de Computadoras</h2>
+<div class="table-container">
+    <table class="gray-table">
+        <thead>
+            <tr>
+                <th>ID de la Computadora</th>
+                <th>Reglas Incumplidas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in incumplimientos %}
+            <tr>
+                <td>{{ item.computer.computer_id }}</td>
+                <td>
+                    <ul>
+                        {% for regla in item.reglas %}
+                        <li>{{ regla }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

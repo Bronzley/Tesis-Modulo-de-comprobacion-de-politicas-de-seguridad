@@ -1,0 +1,115 @@
+/* General */
+body {
+    background-color: #1c1c1c; /* Fondo gris muy oscuro
+    color: #e0e0e0; /* Letra gris clara */
+    font-family: "Helvetica Neue", Arial, sans-serif; /* Tipografía más sofisticada */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+header {
+    background-color: #2a2a2a; /* Fondo del encabezado, ligeramente más claro */
+    padding: 10px 0; /* Ajustar el padding para hacer el header más pequeño */
+    text-align: center;
+    border-bottom: 1px solid rgba(49, 49, 49, 0.377); /* Borde menos definido */
+    border-radius: 0 0 5px 5px; /* Bordes menos rectos */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); /* Sombra más definida */
+  
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 300; /* Letras más ligeras para un toque sofisticado */
+    color: #e0e0e0; /* Color del texto del encabezado */
+    margin-top: 10px; /* Ajustar margen superior */
+}
+
+
+/* Contenedor del login */
+.login-container {
+    background-color: #3a3a3a; /* Fondo del recuadro */
+    color: #fff; /* Color del texto */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 450px;
+    width: 250%; /* Restaurado */
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Organiza el contenido verticalmente */
+    align-items: center; /* Centra los elementos dentro del contenedor */
+    margin-left: 410px; /* Restaurado */
+    margin-top: 110px;
+    width: 400px;
+}
+
+/* Título del login */
+.login-container h2 {
+    margin-top: -10px; /* Mueve el "Iniciar Sesión" hacia arriba */
+    margin-bottom: 20px;
+    font-family: "Helvetica Neue", Arial, sans-serif; /* Tipografía unificada */
+}
+
+/* Formulario */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Etiquetas del formulario */
+.login-container label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Campos de entrada del formulario */
+.login-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a4a4a; /* Fondo del input */
+    color: #fff; /* Color del texto */
+}
+
+.login-container input::placeholder {
+    color: #b0b0b0; /* Color del placeholder */
+}
+
+/* Botones de formulario */
+.login-container button {
+    background-color: #4a4a4a; /* Color del botón */
+    color: #fff;
+    padding: 10px 20px;
+    border: 1px solid transparent; /* Sin borde inicialmente */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #5a5a5a; /* Color del botón al pasar el cursor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+
+/* Contorno azul al hacer clic */
+.login-container button:active {
+    border-color: #0056b3; /* Contorno azul al hacer clic */
+    box-shadow: 0 0 10px #0056b3; /* Sombra azul */
+}
+
+/* Mensajes de error */
+.login-container p {
+    color: red;
+    margin-top: -10px; /* Ajustar el margen para que el mensaje se vea justo debajo del campo de contraseña */
+    width: 100%; /* Asegura que el mensaje de error ocupe todo el ancho del formulario */
+    text-align: center; /* Centra el texto del mensaje de error */
+}
+
+

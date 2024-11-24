@@ -1,0 +1,34 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<h2 class="form-title">Detalles del Monitoreo</h2>
+<div class="table-container">
+    <table class="gray-table">
+        <thead>
+            <tr>
+                <th>ID de la Computadora</th>
+                <th>Nombre de la Computadora</th>
+                <th>Incumplimientos Detectados</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in monitoreo.incumplimientos_detected %}
+            <tr>
+                <td>{{ detalle.computer_id }}</td>
+                <td>{{ detalle.name }}</td>
+                <td>
+                    <ul>
+                        {% for incumplimiento in detalle.incumplimientos %}
+                        <li>{{ incumplimiento }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div id="button-container-monitoreos">
+    <a href="{% url 'listar_monitoreos' %}" class="btn-submit">Volver a la Lista de Monitoreos</a>
+</div>
+{% endblock %}

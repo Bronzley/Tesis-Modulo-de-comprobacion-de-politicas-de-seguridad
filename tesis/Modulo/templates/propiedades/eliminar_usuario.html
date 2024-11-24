@@ -1,0 +1,37 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Eliminar Usuario</h2>
+    
+    {% if not usuario %}
+    <!-- Formulario para ingresar el user_id y buscar el usuario -->
+    <form method="post" action="{% url 'eliminar_usuario' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user_id">Seleccionar Usuario por ID:</label>
+            <input type="text" id="user_id" name="user_id" required>
+            <button type="submit" class="btn-submit">Buscar</button>
+        </div>
+    </form>
+    {% endif %}
+
+    {% if usuario %}
+    <!-- Formulario de confirmación de eliminación del usuario -->
+    <p>¿Estás seguro de que deseas eliminar al usuario "{{ usuario.username }}"?</p>
+    <form method="post" action="{% url 'confirmar_eliminar_usuario' usuario.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-submit">Aceptar</button>
+        <a href="{% url 'eliminar_usuario' %}" class="btn-cancel">Cancelar</a>
+    </form>
+    {% endif %}
+
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+    <p class="success-message">{{ success }}</p>
+    {% endif %}
+</div>
+{% endblock %}

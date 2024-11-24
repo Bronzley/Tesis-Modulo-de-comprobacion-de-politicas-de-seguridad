@@ -1,0 +1,29 @@
+{% extends 'modulo.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Adicionar Usuario</h2>
+    <form method="post" action="{% url 'adicionar_usuario' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user_id">ID de Usuario (número):</label>
+            <input type="text" id="user_id" name="user_id" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn-submit">Adicionar</button>
+    </form>
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+    <p class="success-message">{{ success }}</p>
+    {% endif %}
+</div>
+{% endblock %}
